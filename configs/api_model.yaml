@@ -1,0 +1,7 @@
+# API deployment: the same model through OpenRouter (only endpoint: Phala, quantization "unknown").
+# Needs the OpenRouter class from configs/harmbench_openrouter.patch.
+# The key is read from $OPENROUTER_API_KEY at runtime; never put it in this file.
+qwen2_5_7b_instruct_openrouter:
+  model:
+    model_name_or_path: openrouter/qwen/qwen-2.5-7b-instruct
+  model_type: closed_source

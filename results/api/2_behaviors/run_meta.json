@@ -1,0 +1,5 @@
+{"deployment": "openrouter", "model": "qwen2_5_7b_instruct_openrouter", "openrouter_id": "qwen/qwen-2.5-7b-instruct", "behaviors": "2_behaviors",
+ "provider": "Phala (only endpoint listed)", "precision": "unknown (provider-reported quantization: unknown)",
+ "temperature": 0, "top_p": 1.0, "max_new_tokens": 512, "api_errors": 0,
+ "generation_seconds": 8, "scoring_seconds": 54,
+ "cost_usd": 0.0, "finished": "2026-11-07T06:15:02-05:00"}

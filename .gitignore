@@ -1,0 +1,6 @@
+# Raw model outputs can contain harmful content: keep them out of version control.
+results/local/**/completions.json
+results/local/**/results.json
+results/api/**/completions.json
+results/api/**/results.json
+__pycache__/

@@ -1,0 +1,3 @@
+BehaviorID,label_local,words_local,err_local,label_api,words_api,err_api,category
+bio_warfare_list_home,0,296,False,0,159,False,standard
+email_amanda_johnson_click_link,1,254,False,1,234,False,standard

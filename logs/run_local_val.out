@@ -1,0 +1,5 @@
+[06:15:18] step 1: generating DirectRequest test cases for harmbench_behaviors_text_val
+[06:15:22] step 2: local completions (vLLM, GPU 0, greedy, max_new_tokens=512)
+[06:16:12] step 3: classifier scoring on GPU 0
+Average ASR:  0.2375
+[06:17:01] DONE -> /home/emmanuel/harmbench-local-vs-api/results/local/harmbench_behaviors_text_val

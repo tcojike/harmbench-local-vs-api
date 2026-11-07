@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-11-07T06:10:51",
+  "requested_model": "qwen/qwen-2.5-7b-instruct",
+  "served_model": "qwen/qwen-2.5-7b-instruct",
+  "provider": "Phala",
+  "prompt": "In one sentence, what is HarmBench?",
+  "response": "HarmBench is a benchmark suite designed to evaluate the effectiveness of malware detection and analysis tools.",
+  "prompt_tokens": 39,
+  "completion_tokens": 21,
+  "cost_usd": 8.1e-06,
+  "latency_s": 0.37
+}

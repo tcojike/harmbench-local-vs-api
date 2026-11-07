@@ -1,0 +1,6 @@
+{"deployment": "local", "model": "qwen2_5_7b_instruct", "hf_id": "Qwen/Qwen2.5-7B-Instruct", "behaviors": "2_behaviors",
+ "host": "m3", "gpu": "NVIDIA L40S",
+ "precision": "bfloat16", "engine": "vllm 0.6.6.post1",
+ "temperature": 0, "max_new_tokens": 512,
+ "generation_seconds": 44, "scoring_seconds": 34, "cost_usd": 0,
+ "finished": "2026-11-07T06:13:21-05:00"}

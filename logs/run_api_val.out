@@ -1,0 +1,6 @@
+[06:17:01] test cases exist: /home/emmanuel/harmbench-local-vs-api/results/test_cases/harmbench_behaviors_text_val/test_cases.json
+[06:17:01] step 2: API completions via OpenRouter (temperature 0, max_tokens=512); key usage before: $6.061471681
+[06:20:42] key usage after: $6.067504481   API errors: 0
+[06:20:42] step 3: classifier scoring on GPU 1
+Average ASR:  0.2625
+[06:21:26] DONE -> /home/emmanuel/harmbench-local-vs-api/results/api/harmbench_behaviors_text_val

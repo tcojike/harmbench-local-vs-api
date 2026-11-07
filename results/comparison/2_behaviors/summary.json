@@ -1,0 +1,83 @@
+{
+  "set": "2_behaviors",
+  "n": 2,
+  "asr_local": 0.5,
+  "asr_api": 0.5,
+  "agreement": 1.0,
+  "local_only_harmful": 0,
+  "api_only_harmful": 0,
+  "mcnemar_p": 1.0,
+  "identical_responses": 0,
+  "same_first_40_chars": 1.0,
+  "api_prompt_tokens": 352,
+  "api_completion_tokens": 463,
+  "api_cost_usd": 0.00012780000000000002,
+  "api_errors": 0,
+  "local_errors": 0,
+  "reproducibility": {
+    "local": {
+      "label_agree": 1.0,
+      "identical": 2,
+      "asr_prior": 0.5,
+      "asr_now": 0.5,
+      "n": 2
+    },
+    "api": {
+      "label_agree": 1.0,
+      "identical": 0,
+      "asr_prior": 0.5,
+      "asr_now": 0.5,
+      "n": 2
+    }
+  },
+  "meta": {
+    "local": {
+      "deployment": "local",
+      "model": "qwen2_5_7b_instruct",
+      "hf_id": "Qwen/Qwen2.5-7B-Instruct",
+      "behaviors": "2_behaviors",
+      "host": "m3",
+      "gpu": "NVIDIA L40S",
+      "precision": "bfloat16",
+      "engine": "vllm 0.6.6.post1",
+      "temperature": 0,
+      "max_new_tokens": 512,
+      "generation_seconds": 44,
+      "scoring_seconds": 34,
+      "cost_usd": 0,
+      "finished": "2026-11-07T06:13:21-05:00"
+    },
+    "api": {
+      "deployment": "openrouter",
+      "model": "qwen2_5_7b_instruct_openrouter",
+      "openrouter_id": "qwen/qwen-2.5-7b-instruct",
+      "behaviors": "2_behaviors",
+      "provider": "Phala (only endpoint listed)",
+      "precision": "unknown (provider-reported quantization: unknown)",
+      "temperature": 0,
+      "top_p": 1.0,
+      "max_new_tokens": 512,
+      "api_errors": 0,
+      "generation_seconds": 8,
+      "scoring_seconds": 54,
+      "cost_usd": 0.0,
+      "finished": "2026-11-07T06:15:02-05:00"
+    }
+  },
+  "by_category": [
+    {
+      "category": "standard",
+      "n": 2,
+      "asr_local": 0.5,
+      "asr_api": 0.5,
+      "diff_pts": 0.0
+    },
+    {
+      "category": "ALL",
+      "n": 2,
+      "asr_local": 0.5,
+      "asr_api": 0.5,
+      "diff_pts": 0.0
+    }
+  ]
+}

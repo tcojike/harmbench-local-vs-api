@@ -1,0 +1,5 @@
+{"deployment": "openrouter", "model": "qwen2_5_7b_instruct_openrouter", "openrouter_id": "qwen/qwen-2.5-7b-instruct", "behaviors": "harmbench_behaviors_text_val",
+ "provider": "Phala (only endpoint listed)", "precision": "unknown (provider-reported quantization: unknown)",
+ "temperature": 0, "top_p": 1.0, "max_new_tokens": 512, "api_errors": 0,
+ "generation_seconds": 201, "scoring_seconds": 64,
+ "cost_usd_key_usage_delta": 0.006033, "cost_note": "key-usage delta lags; see compare_scores.py token-based cost", "finished": "2026-11-07T06:21:26-05:00"}

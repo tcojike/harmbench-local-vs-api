@@ -1,0 +1,8 @@
+# Local deployment: Qwen2.5-7B-Instruct served by vLLM on m3 (NVIDIA L40S, bf16, greedy decoding).
+# No chat_template -> HarmBench uses the tokenizer's own template (which adds Qwen's default system prompt).
+qwen2_5_7b_instruct:
+  model:
+    model_name_or_path: Qwen/Qwen2.5-7B-Instruct
+    dtype: bfloat16
+  num_gpus: 1
+  model_type: open_source

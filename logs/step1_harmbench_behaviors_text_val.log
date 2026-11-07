@@ -1,0 +1,10 @@
+Namespace(method_name='DirectRequest', experiment_name='default', method_config_file=None, models_config_file='./configs/model_configs/models.yaml', behaviors_path='./data/behavior_datasets/harmbench_behaviors_text_val.csv', save_dir='/home/emmanuel/harmbench-local-vs-api/results/test_cases/harmbench_behaviors_text_val', behavior_start_idx=None, behavior_end_idx=None, behavior_ids_subset='', run_id=None, overwrite=False, verbose=False)
+{}
+============= DirectRequest, default Config =============
+placeholder: placeholder
+============= GPU Allocation Configs =============
+Total GPUs: 4
+=============
+#Behaviors to run: 80
+Saving outputs to:  /home/emmanuel/harmbench-local-vs-api/results/test_cases/harmbench_behaviors_text_val
+Finished

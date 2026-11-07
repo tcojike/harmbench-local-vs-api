@@ -1,0 +1,19 @@
+/home/emmanuel/venv-harmbench/lib/python3.10/site-packages/google/api_core/_python_version_support.py:223: FutureWarning: You are using a non-supported Python version (3.10.12). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.11, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/home/emmanuel/HarmBench/api_models.py:8: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+Namespace(model_name='qwen2_5_7b_instruct_openrouter', models_config_file='/home/emmanuel/harmbench-local-vs-api/configs/api_model.yaml', behaviors_path='./data/behavior_datasets/2_behaviors.csv', test_cases_path='/home/emmanuel/harmbench-local-vs-api/results/test_cases/2_behaviors/test_cases.json', save_path='/home/emmanuel/harmbench-local-vs-api/results/api/2_behaviors/completions.json', max_new_tokens=512, generate_with_vllm=False, incremental_update=False)
+model_config {'model_name_or_path': 'openrouter/qwen/qwen-2.5-7b-instruct', 'num_gpus': 0}
+Generating completions for 2 test cases
+Generating completions...
+  0%|          | 0/2 [00:00<?, ?it/s] 50%|█████     | 1/2 [00:01<00:01,  1.26s/it]100%|██████████| 2/2 [00:03<00:00,  1.56s/it]100%|██████████| 2/2 [00:03<00:00,  1.51s/it]
+Done
+Saving completions to /home/emmanuel/harmbench-local-vs-api/results/api/2_behaviors/completions.json...
+Saved
