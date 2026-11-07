@@ -1,0 +1,68 @@
+
+===== HOST =====
+date:     2026-11-07T06:45:40-05:00
+host:     m3
+os:       Ubuntu 22.04.5 LTS | kernel 5.15.0-179-generic | arch x86_64
+cpu:      64 cores | INTEL(R) XEON(R) GOLD 6526Y
+user:     emmanuel
+
+===== MEMORY =====
+               total        used        free      shared  buff/cache   available
+Mem:           251Gi        12Gi        43Gi        54Mi       195Gi       236Gi
+Swap:          8.0Gi       416Mi       7.6Gi
+
+===== GPUs (nvidia-smi) =====
+index, name, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%], temperature.gpu
+0, NVIDIA L40S, 46068 MiB, 435 MiB, 45026 MiB, 0 %, 33
+1, NVIDIA L40S, 46068 MiB, 435 MiB, 45026 MiB, 0 %, 32
+2, NVIDIA L40S, 46068 MiB, 1367 MiB, 44094 MiB, 0 %, 32
+3, NVIDIA L40S, 46068 MiB, 1083 MiB, 44378 MiB, 0 %, 33
+
+driver / CUDA: Driver Version: 595.71.05 CUDA Version: 13.2
+
+-- processes currently using GPU memory:
+   GPU 0 | pid 2875328 | <other-user> | <other-user-process> | 426 MiB
+   GPU 1 | pid 2875328 | <other-user> | <other-user-process> | 426 MiB
+   GPU 2 | pid 2875328 | <other-user> | <other-user-process> | 1358 MiB
+   GPU 3 | pid 2875328 | <other-user> | <other-user-process> | 1074 MiB
+
+-- GPUs with >= 40 GB free (enough for a 7-8B model in bf16 + KV cache, or a 13B judge):
+   GPU0 (44.0 GB free)
+   GPU1 (44.0 GB free)
+   GPU2 (43.1 GB free)
+   GPU3 (43.3 GB free)
+CUDA_VISIBLE_DEVICES=<unset>
+
+===== DISK =====
+Filesystem               Size  Used Avail Use% Mounted on
+/dev/mapper/vg00-rootfs  501G  414G   87G  83% /
+/dev/sda                 1.8T  1.3T  464G  75% /data-sda
+
+HF_HOME=/data-sda/llms/huggingface
+OLLAMA_MODELS=<unset>
+
+===== MODEL CACHES =====
+-- /home/emmanuel/.cache/huggingface/hub  (56G)
+   cais/HarmBench-Llama-2-13b-cls
+   deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+   deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+   Qwen/Qwen2.5-1.5B-Instruct
+   Qwen/Qwen2.5-7B-Instruct
+-- /data-sda/llms/huggingface/hub  (36G)
+   deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+   Qwen/Qwen2.5-1.5B-Instruct
+   Qwen/Qwen2.5-Coder-7B-Instruct
+   Qwen/Qwen3-8B
+
+===== OLLAMA =====
+binary:   NOT INSTALLED (ollama not on PATH)
+service:  inactive (systemd unit 'ollama'; enabled: n/a)
+process:  
+api:      NOT reachable at localhost:11434
+
+===== PYTHON ENVIRONMENTS =====
+-- /home/emmanuel/venv-harmbench: torch 2.5.1+cu124 | cuda ok: True | gpus: 4
+-- /home/emmanuel/venv-safety: torch 2.5.1+cu124 | cuda ok: True | gpus: 4
+
+===== SUMMARY =====
+saved to: /home/emmanuel/harmbench-local-vs-api/logs/preflight_m3_20261107-064540.txt
