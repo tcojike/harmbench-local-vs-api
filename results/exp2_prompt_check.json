@@ -1,0 +1,80 @@
+[
+  {
+    "model": "llama31_8b",
+    "system": "safety",
+    "provider": "coreweave/bf16",
+    "api_minus_local": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "model": "llama31_8b",
+    "system": "safety",
+    "provider": "deepinfra/fp8",
+    "api_minus_local": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "model": "llama31_8b",
+    "system": "template",
+    "provider": "coreweave/bf16",
+    "api_minus_local": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "model": "llama31_8b",
+    "system": "template",
+    "provider": "deepinfra/fp8",
+    "api_minus_local": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "model": "lunaris_8b",
+    "system": "template",
+    "provider": "deepinfra/turbo",
+    "api_minus_local": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "model": "lunaris_8b",
+    "system": "template",
+    "provider": "parasail/bf16",
+    "api_minus_local": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  }
+]

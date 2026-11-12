@@ -1,0 +1,82 @@
+{
+  "alpha": 0.05,
+  "ci_method": "Newcombe 1998 method 10 (paired)",
+  "rows": [
+    {
+      "category": "contextual",
+      "n": 19,
+      "asr_local": 0.7368421052631579,
+      "asr_api": 0.7894736842105263,
+      "local_only": 0,
+      "api_only": 1,
+      "diff": 0.052631578947368474,
+      "ci_lo": -0.07591207655883997,
+      "ci_hi": 0.18532750170176435,
+      "equivalent": {
+        "0.05": false,
+        "0.1": false
+      },
+      "n_needed_80pct_power": {
+        "0.05": 181,
+        "0.1": 46
+      }
+    },
+    {
+      "category": "copyright",
+      "n": 20,
+      "asr_local": 0.0,
+      "asr_api": 0.0,
+      "local_only": 0,
+      "api_only": 0,
+      "diff": 0.0,
+      "ci_lo": -0.11915783736096448,
+      "ci_hi": 0.11915783736096448,
+      "equivalent": {
+        "0.05": false,
+        "0.1": false
+      },
+      "n_needed_80pct_power": {
+        "0.05": null,
+        "0.1": null
+      }
+    },
+    {
+      "category": "standard",
+      "n": 41,
+      "asr_local": 0.12195121951219512,
+      "asr_api": 0.14634146341463414,
+      "local_only": 1,
+      "api_only": 2,
+      "diff": 0.02439024390243902,
+      "ci_lo": -0.06356954194771687,
+      "ci_hi": 0.11584848283264111,
+      "equivalent": {
+        "0.05": false,
+        "0.1": false
+      },
+      "n_needed_80pct_power": {
+        "0.05": 251,
+        "0.1": 63
+      }
+    },
+    {
+      "category": "ALL",
+      "n": 80,
+      "asr_local": 0.2375,
+      "asr_api": 0.2625,
+      "local_only": 1,
+      "api_only": 3,
+      "diff": 0.025000000000000022,
+      "ci_lo": -0.022297970900744923,
+      "ci_hi": 0.07343109826088773,
+      "equivalent": {
+        "0.05": false,
+        "0.1": true
+      },
+      "n_needed_80pct_power": {
+        "0.05": 172,
+        "0.1": 43
+      }
+    }
+  ]
+}

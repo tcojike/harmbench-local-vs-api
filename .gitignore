@@ -4,3 +4,6 @@ results/local/**/results.json
 results/api/**/completions.json
 results/api/**/results.json
 __pycache__/
+
+# exp2 raw run directories (completions, records with generations)
+runs/

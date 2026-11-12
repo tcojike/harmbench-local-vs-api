@@ -45,3 +45,28 @@ Run the local script before the API script (it creates the shared test cases); G
 `results/*/*/completions.json` and `results.json` contain the model's raw responses to harmful requests, some of
 them harmful. Keep this directory access-controlled and do not publish raw completions; `.gitignore` excludes
 them so only scores and per-behavior labels get committed.
+
+## Experiment 2 (Nov 11): serving path × precision × system prompt × model
+
+Follow-up requested after the Nov 7 review. Qwen2.5-7B is no longer on OpenRouter, so the
+serving-path comparison moved to models that are served both ways:
+
+* **Models:** Qwen2.5-7B-Instruct (local only), Llama-3.1-8B-Instruct, L3-8B-Lunaris (a less safety-tuned Llama-3 fine-tune)
+* **Factors:** local vLLM vs OpenRouter with the provider **pinned** (no fallbacks); **bf16 vs fp8** weights on both sides;
+  system prompt = model template / explicit empty / Llama-2 safety prompt
+* **Design:** all 320 HarmBench text **test** behaviors, **5 samples per behavior at T = 0.7**, plus greedy runs
+  (local at batch 256 vs 8 = noise floor, and the API at temperature 0)
+* **Stats:** paired bootstrap CI over behaviors, sign-flip permutation p-values with Holm correction, TOST equivalence at ±5 points,
+  everything broken down by category (standard / contextual / copyright)
+* **Logging:** one record per completion (provider that served it, response id, prompt/completion tokens, finish reason,
+  latency, seed), run.json with git hashes, package versions, model revisions and the OpenRouter endpoint list at start
+* **Same prompt on both sides:** local Llama prompts are rendered the way the providers render them (checked token-for-token,
+  `exp2/check_prompts.py`, `results/exp2_prompt_check.json`)
+* **Robustness:** flock, a new directory for each run, provider preflight, fail-fast on permanent 4xx errors, abort when more than 5% of completions are errors
+
+```bash
+source ~/.bashrc; cd ~/harmbench-local-vs-api
+EXP2_LIMIT=2 bash exp2/run_exp2.sh runs/smoke     # 6-behavior smoke test, ~5 min
+bash exp2/run_exp2.sh                              # full run -> results/exp2/<run>/report.md
+```
+Raw generations stay in `runs/` (gitignored).
