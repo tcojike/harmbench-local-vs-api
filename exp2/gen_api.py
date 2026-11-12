@@ -6,6 +6,8 @@ Usage: python exp2/gen_api.py RUN_DIR COND_NAME [--concurrency 16]
   response, its id, token usage, finish reason and latency are stored per completion (records.jsonl).
 * permanent errors (4xx except 408/409/429) abort immediately; transient errors are retried with backoff.
 * the run aborts if more than 5% of completions end as $ERROR$.
+* checkpointing: every finished record is appended to <cond>/partial.jsonl; a restart reuses the successful
+  ones and only requests the rest. Retry errors are logged as they happen.
 """
 import argparse, asyncio, hashlib, json, os, random, sys, time
 from pathlib import Path
@@ -59,24 +61,51 @@ async def one(sem, bid, tc, k):
                 if 400 <= e.status_code < 500 and e.status_code not in (408, 409, 429):
                     raise Permanent(f"{e.status_code}: {e}") from e
                 rec["last_error"] = f"{e.status_code}: {str(e)[:200]}"
+                print(f"retry {bid}/{k} attempt {attempt + 1}: {rec['last_error'][:160]}", flush=True)
             except (openai.APIConnectionError, openai.APITimeoutError) as e:
                 rec["last_error"] = f"{type(e).__name__}: {str(e)[:200]}"
+                print(f"retry {bid}/{k} attempt {attempt + 1}: {rec['last_error'][:160]}", flush=True)
             except Exception as e:   # malformed responses (e.g. choices=None from the provider)
                 rec["last_error"] = f"{type(e).__name__}: {str(e)[:200]}"
+                print(f"retry {bid}/{k} attempt {attempt + 1}: {rec['last_error'][:160]}", flush=True)
             await asyncio.sleep(min(90, 2 ** attempt * 2) * (0.5 + random.random()))   # jittered backoff (429s)
     rec.update(generation=ERR, attempts=10)
     return rec
 
 
+PARTIAL = out / "partial.jsonl"
+
+
+def load_partial():
+    """Successful records from an interrupted earlier attempt (failed ones are retried)."""
+    done = {}
+    if PARTIAL.exists():
+        for line in open(PARTIAL):
+            try:
+                r = json.loads(line)
+            except json.JSONDecodeError:   # last line cut off by a kill
+                continue
+            if r.get("generation") != ERR:
+                done[(r["behavior_id"], r["sample"])] = r
+    return done
+
+
 async def main():
     sem = asyncio.Semaphore(a.concurrency)
-    jobs = [one(sem, bid, tc, k) for bid, tcs in test_cases.items() for tc in tcs for k in range(dec["n"])]
-    t0, recs = time.time(), []
-    for i, fut in enumerate(asyncio.as_completed(jobs), 1):
-        recs.append(await fut)
-        if i % 200 == 0:
-            errs = sum(r["generation"] == ERR for r in recs)
-            print(f"{c['name']}: {i}/{len(jobs)} done, {errs} errors, {time.time() - t0:.0f}s", flush=True)
+    done = load_partial()
+    todo = [(bid, tc, k) for bid, tcs in test_cases.items() for tc in tcs for k in range(dec["n"]) if (bid, k) not in done]
+    total = len(todo) + len(done)
+    if done:
+        print(f"{c['name']}: resuming, {len(done)} records from {PARTIAL.name}, {len(todo)} to request", flush=True)
+    jobs = [one(sem, bid, tc, k) for bid, tc, k in todo]
+    t0, recs = time.time(), list(done.values())
+    with open(PARTIAL, "a") as pf:
+        for i, fut in enumerate(asyncio.as_completed(jobs), 1):
+            r = await fut
+            recs.append(r); pf.write(json.dumps(r) + "\n"); pf.flush()
+            if i % 200 == 0 or i == len(jobs):
+                errs = sum(x["generation"] == ERR for x in recs)
+                print(f"{c['name']}: {len(recs)}/{total} done, {errs} errors, {time.time() - t0:.0f}s", flush=True)
     return recs, time.time() - t0
 
 try:

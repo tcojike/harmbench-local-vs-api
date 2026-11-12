@@ -60,8 +60,10 @@ serving-path comparison moved to models that are served both ways:
   everything broken down by category (standard / contextual / copyright)
 * **Logging:** one record per completion (provider that served it, response id, prompt/completion tokens, finish reason,
   latency, seed), run.json with git hashes, package versions, model revisions and the OpenRouter endpoint list at start
-* **Same prompt on both sides:** local Llama prompts are rendered the way the providers render them (checked token-for-token,
-  `exp2/check_prompts.py`, `results/exp2_prompt_check.json`)
+* **Same prompt on both sides:** local Llama prompts are rendered the way the providers render them (prompt lengths checked against
+  provider-reported usage, `exp2/check_prompts.py`, `results/exp2_prompt_check.json`). DeepInfra matches exactly. CoreWeave and Parasail
+  report one more token for every prompt: they prepend a BOS token to a template that already starts with one, so their models see
+  two BOS tokens (`exp2/check_bos.py`, `results/exp2_bos_check.json`; inferred from counts, providers return no token ids)
 * **Robustness:** flock, a new directory for each run, provider preflight, fail-fast on permanent 4xx errors, abort when more than 5% of completions are errors
 
 ```bash

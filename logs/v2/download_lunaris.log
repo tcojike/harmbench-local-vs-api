@@ -1,0 +1,25 @@
+[33m⚠️  Warning: 'huggingface-cli download' is deprecated. Use 'hf download' instead.[0m
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Downloading 'model-00004-of-00004.safetensors' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/6d81b774de25362013e8025ee2abd1950407d66689c2a7642ae8b6f1a20b488e.incomplete'
+Downloading 'model-00002-of-00004.safetensors' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/1ce9bdea27175f3f30cdacbd7f480b53316ad7e1b1e8df33a3b495032d026436.incomplete'
+Downloading 'model-00003-of-00004.safetensors' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/e66e8389f05592776b7ea438dc3b470597d28475170bd2859c12ad8195158b01.incomplete'
+Downloading 'model-00001-of-00004.safetensors' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/ffd4d86967724ab4778df78050005f0448ff851b71fe00372794854797a2ca20.incomplete'
+Downloading 'README.md' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/a95b8c3fc74ba92adfe60fb9e3a44b23e5b5387b.incomplete'
+Downloading 'config.json' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/875df8450a5822368bd58246ca44182f2cf59cc8.incomplete'
+Downloading '.gitattributes' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/a6344aac8c09253b3b630fb776ae94478aa0275b.incomplete'
+Downloading 'model.safetensors.index.json' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/c45189effeb156eb7b04a8ea0f3d2266db300fe5.incomplete'
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/a95b8c3fc74ba92adfe60fb9e3a44b23e5b5387b
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/c45189effeb156eb7b04a8ea0f3d2266db300fe5
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/875df8450a5822368bd58246ca44182f2cf59cc8
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/a6344aac8c09253b3b630fb776ae94478aa0275b
+Downloading 'tokenizer_config.json' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/1bfd1146b7bde6168de7bb673bfe0acaea6e684c.incomplete'
+Downloading 'special_tokens_map.json' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/02ee80b6196926a5ad790a004d9efd6ab1ba6542.incomplete'
+Downloading 'tokenizer.json' to '/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/b197f72effb9d5ed16ee0f5663e11e4cfac2ba62.incomplete'
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/02ee80b6196926a5ad790a004d9efd6ab1ba6542
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/1bfd1146b7bde6168de7bb673bfe0acaea6e684c
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/b197f72effb9d5ed16ee0f5663e11e4cfac2ba62
+Fetching 11 files:  64%|██████▎   | 7/11 [00:20<00:11,  2.86s/it]Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/6d81b774de25362013e8025ee2abd1950407d66689c2a7642ae8b6f1a20b488e
+Fetching 11 files:  73%|███████▎  | 8/11 [00:24<00:09,  3.09s/it]Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/ffd4d86967724ab4778df78050005f0448ff851b71fe00372794854797a2ca20
+Fetching 11 files:  82%|████████▏ | 9/11 [01:20<00:17,  8.93s/it]Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/e66e8389f05592776b7ea438dc3b470597d28475170bd2859c12ad8195158b01
+Fetching 11 files:  91%|█████████ | 10/11 [01:49<00:10, 10.92s/it]Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/blobs/1ce9bdea27175f3f30cdacbd7f480b53316ad7e1b1e8df33a3b495032d026436
+Fetching 11 files: 100%|██████████| 11/11 [02:02<00:00, 11.14s/it]Fetching 11 files: 100%|██████████| 11/11 [02:02<00:00, 11.14s/it]
+/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/snapshots/8479c2a7ee119c935b9a02c921cc2a85b698dfe8

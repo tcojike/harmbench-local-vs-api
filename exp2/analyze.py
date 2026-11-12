@@ -116,17 +116,29 @@ for q, A, Bn in GREEDY_CONTRASTS:
 json.dump(dict(conditions=rows, contrasts=res, greedy=greedy, prompt_check=prompt_check, equiv_margin=EQUIV_MARGIN),
           open(OUT / "summary.json", "w"), indent=2, default=lambda o: o.item() if hasattr(o, "item") else str(o))
 
+missing = [c["name"] for c in CONDITIONS if c["name"] not in labels]
+skipped = [q for q, A, Bn in list(CONTRASTS) + list(GREEDY_CONTRASTS) if A not in rates or Bn not in rates]
+notes = (run / "notes.md").read_text().strip() if (run / "notes.md").exists() else ""
+bos_file = Path(__file__).resolve().parent.parent / "results/exp2_bos_check.json"
+bos = {(b["model"], b["provider"]): b for b in json.load(open(bos_file))["results"]} if bos_file.exists() else {}
+
 # ---------- report ----------
 P = lambda x: f"{100 * x:.1f}"
 S = lambda x: f"{100 * x:+.1f}"
 md = ["# Experiment 2 results\n", f"Run: `{run.name}`. 320 HarmBench text test behaviors, DirectRequest. "
       "Sampled conditions: 5 completions per behavior at temperature 0.7; ASR = mean over behaviors of the "
       "share of harmful completions (HarmBench-Llama-2-13b-cls; hash check for copyright).\n",
+      *([f"**Incomplete run:** {len(missing)} of {len(CONDITIONS)} planned conditions have no scored completions "
+         f"({', '.join(f'`{m}`' for m in missing)}); {len(skipped)} contrast(s) could not be computed: "
+         + "; ".join(skipped) + ".\n"] if missing else []),
+      *(["## Run notes\n", notes + "\n"] if notes else []),
       "## ASR by condition\n",
       "| Condition | Path | Precision | System | Decoding | n | Errors | ASR | Standard | Contextual | Copyright | Truncated | Providers |",
       "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
 for r in rows:
-    md.append(f"| {r['model']} | {r['path']} | {r['precision']} | {r['system']} | {r['decoding']}{'' if r['decoding'] == 'sampled' else ' bs' + str(cond[r['condition']]['batch'])} "
+    dec_label = ("sampled" if r["decoding"] == "sampled" else
+                 f"greedy bs{cond[r['condition']]['batch']}" if r["path"] == "local" else "greedy (T = 0)")
+    md.append(f"| {r['model']} | {r['path']} | {r['precision']} | {r['system']} | {dec_label} "
               f"| {r['n_completions']} | {r['errors']} | **{P(r['asr'])}** | {P(r['asr_standard'])} | {P(r['asr_contextual'])} | {P(r['asr_copyright'])} "
               f"| {P(r['truncated'])}% | {', '.join(f'{k} {v}' for k, v in r['providers'].items())} |")
 md += ["\n## Pre-registered contrasts (B − A, percentage points)\n",
@@ -144,8 +156,19 @@ if greedy:
            "|---|---|---|---|---|---|---|---|"]
     md += [f"| {g['question']} | {P(g['asr_A'])} | {P(g['asr_B'])} | {P(g['label_agreement'])}% | {g['A_only']} / {g['B_only']} | {g['mcnemar_p']:.3f} | {P(g['identical'])}% | {P(g['same_first_40'])}% |" for g in greedy]
 if prompt_check:
+    def bos_col(api):
+        b = bos.get((cond[api]["model"], cond[api]["provider"]))
+        return "not checked" if b is None else ("**2 BOS** (provider adds one)" if b["double_bos_in_chat"] else "1 BOS (same as local)")
     md += ["\n## Prompt check (API prompt tokens − local prompt tokens, per behavior)\n",
-           "| API condition | Median diff | Range | Share identical length |", "|---|---|---|---|"]
-    md += [f"| {p['api']} | {p['median_diff']:+.0f} | [{p['min_diff']:+d}, {p['max_diff']:+d}] | {P(p['share_equal'])}% |" for p in prompt_check]
+           "| API condition | Provider | Median diff | Range | Share identical length | BOS tokens in chat prompt |", "|---|---|---|---|---|---|"]
+    md += [f"| {p['api']} | {cond[p['api']]['provider']} | {p['median_diff']:+.0f} | [{p['min_diff']:+d}, {p['max_diff']:+d}] | {P(p['share_equal'])}% | {bos_col(p['api'])} |"
+           for p in prompt_check]
+    if bos:
+        md += ["", "The constant +1 is a second BOS token, not a different prompt: `exp2/check_bos.py` "
+               "(`results/exp2_bos_check.json`) sends the same prompt raw through `/completions`. Providers marked "
+               "\"2 BOS\" count a BOS-less raw prompt as local length (they prepend BOS themselves) and our rendered "
+               "prompt, which already starts with `<|begin_of_text|>`, as local + 1; their chat count equals the latter. "
+               "So their models see `<|begin_of_text|><|begin_of_text|>…` while local vLLM and DeepInfra see one. "
+               "Inferred from token counts: providers do not return token ids, so beyond the extra BOS the check shows equal lengths, not identical tokens."]
 (OUT / "report.md").write_text("\n".join(md) + "\n")
 print("\n".join(md))

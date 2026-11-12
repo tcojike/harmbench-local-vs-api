@@ -100,8 +100,9 @@ def messages(system, test_case):
 # Llama-3.1's official HF chat template always adds a system block ("Cutting Knowledge Date: December 2023
 # / Today Date: 26 Jul 2024"), but the OpenRouter providers (CoreWeave, DeepInfra) do not: their prompt-token
 # counts are 19-24 tokens shorter. Local Llama-family prompts are therefore rendered in the plain Llama-3
-# format the providers use (system block only if a system message is sent), verified token-for-token
-# against provider-reported usage (see exp2/check_prompts.py). Qwen uses its own HF template.
+# format the providers use (system block only if a system message is sent). Prompt lengths match provider-reported
+# usage (exp2/check_prompts.py) except for one extra BOS token on CoreWeave and Parasail, which prepend BOS to a
+# template that already has one (exp2/check_bos.py). Qwen uses its own HF template.
 LLAMA3_FAMILY = {"llama31_8b", "lunaris_8b"}
 
 

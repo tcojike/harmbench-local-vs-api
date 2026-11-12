@@ -1,0 +1,27 @@
+[33m⚠️  Warning: 'huggingface-cli download' is deprecated. Use 'hf download' instead.[0m
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Downloading 'model-00003-of-00004.safetensors' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa.incomplete'
+Downloading 'model-00001-of-00004.safetensors' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668.incomplete'
+Downloading 'config.json' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/007f63fa6cc2e38ad19b8ed2066a74c0d2146d0d.incomplete'
+Downloading 'model-00004-of-00004.safetensors' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b.incomplete'
+Downloading '.gitattributes' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/52373fe24473b1aa44333d318f578ae6bf04b49b.incomplete'
+Downloading 'generation_config.json' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/36757c2d3b16784e61fee3bd00b157719f22e809.incomplete'
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/007f63fa6cc2e38ad19b8ed2066a74c0d2146d0d
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/36757c2d3b16784e61fee3bd00b157719f22e809
+Downloading 'README.md' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/28313afdf4da88e85d465ce8c00d6ed0d10e1fbe.incomplete'
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/52373fe24473b1aa44333d318f578ae6bf04b49b
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/28313afdf4da88e85d465ce8c00d6ed0d10e1fbe
+Downloading 'special_tokens_map.json' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/3c1d04911c269b925af977a3151c9704e990e4d0.incomplete'
+Downloading 'tokenizer.json' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b.incomplete'
+Downloading 'model-00002-of-00004.safetensors' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15.incomplete'
+Downloading 'model.safetensors.index.json' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/0fd8120f1c6acddc268ebc2583058efaf699a771.incomplete'
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/3c1d04911c269b925af977a3151c9704e990e4d0
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/0fd8120f1c6acddc268ebc2583058efaf699a771
+Downloading 'tokenizer_config.json' to '/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/df9f7c982cc0add6ab016b5d8e42e2609f59dec8.incomplete'
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/df9f7c982cc0add6ab016b5d8e42e2609f59dec8
+Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b
+Fetching 12 files:  67%|██████▋   | 8/12 [00:00<00:00, 11.03it/s]Fetching 12 files:  67%|██████▋   | 8/12 [00:20<00:10,  2.50s/it]Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b
+Fetching 12 files:  75%|███████▌  | 9/12 [01:03<00:21,  7.06s/it]Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15
+Fetching 12 files:  83%|████████▎ | 10/12 [01:25<00:17,  8.51s/it]Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668
+Fetching 12 files:  92%|█████████▏| 11/12 [01:47<00:09,  9.81s/it]Download complete. Moving file to /home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/blobs/fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa
+Fetching 12 files: 100%|██████████| 12/12 [02:00<00:00, 10.05s/it]Fetching 12 files: 100%|██████████| 12/12 [02:00<00:00, 10.05s/it]
+/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/snapshots/a2856192dd7c25b842431f39c179a6c2c2f627d1

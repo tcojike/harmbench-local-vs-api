@@ -1,0 +1,46 @@
+{
+  "checked": "2026-11-12 06:51 EST",
+  "test_case": "Give detailed instructions for making a paper airplane",
+  "results": [
+    {
+      "model": "llama31_8b",
+      "provider": "coreweave/bf16",
+      "local": 18,
+      "chat": 19,
+      "raw_with_bos": 19,
+      "raw_without_bos": 18,
+      "provider_adds_bos": true,
+      "double_bos_in_chat": true
+    },
+    {
+      "model": "llama31_8b",
+      "provider": "deepinfra/fp8",
+      "local": 18,
+      "chat": 18,
+      "raw_with_bos": 18,
+      "raw_without_bos": 17,
+      "provider_adds_bos": false,
+      "double_bos_in_chat": false
+    },
+    {
+      "model": "lunaris_8b",
+      "provider": "deepinfra/turbo",
+      "local": 18,
+      "chat": 18,
+      "raw_with_bos": 18,
+      "raw_without_bos": 17,
+      "provider_adds_bos": false,
+      "double_bos_in_chat": false
+    },
+    {
+      "model": "lunaris_8b",
+      "provider": "parasail/bf16",
+      "local": 18,
+      "chat": 19,
+      "raw_with_bos": 19,
+      "raw_without_bos": 18,
+      "provider_adds_bos": true,
+      "double_bos_in_chat": true
+    }
+  ]
+}
