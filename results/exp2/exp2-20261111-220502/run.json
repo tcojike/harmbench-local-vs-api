@@ -1,0 +1,281 @@
+{
+  "started": "2026-11-11T22:05:10.279076-05:00",
+  "host": "m3",
+  "gpus": [
+    "NVIDIA L40S, 595.71.05",
+    "NVIDIA L40S, 595.71.05",
+    "NVIDIA L40S, 595.71.05",
+    "NVIDIA L40S, 595.71.05"
+  ],
+  "project_git": "1f51ebad13d136b793b229ffba806824150cb0de",
+  "project_dirty": true,
+  "conditions_sha256": "e6343adc4ce5a2c6162436b7e3f7544fa2a3940211a74a4ddf69edb17afdee31",
+  "harmbench_git": "8e1604d1171fe8a48d8febecd22f600e462bdcdd",
+  "versions": {
+    "vllm": "0.6.6.post1",
+    "torch": "2.5.1+cu124",
+    "transformers": "4.47.1",
+    "openai": "3.46.0"
+  },
+  "local_snapshots": {
+    "qwen25_7b": "/home/emmanuel/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28",
+    "llama31_8b": "/home/emmanuel/.cache/huggingface/hub/models--unsloth--Meta-Llama-3.1-8B-Instruct/snapshots/a2856192dd7c25b842431f39c179a6c2c2f627d1",
+    "lunaris_8b": "/home/emmanuel/.cache/huggingface/hub/models--Sao10K--L3-8B-Lunaris-v1/snapshots/8479c2a7ee119c935b9a02c921cc2a85b698dfe8"
+  },
+  "openrouter_endpoints_at_start": {
+    "sao10k/l3-lunaris-8b": [
+      {
+        "provider_name": "Parasail",
+        "tag": "parasail/bf16",
+        "quantization": "bf16",
+        "context_length": 8192,
+        "pricing": {
+          "prompt": "0.00000004",
+          "completion": "0.00000005",
+          "discount": 0
+        }
+      },
+      {
+        "provider_name": "DeepInfra",
+        "tag": "deepinfra/turbo",
+        "quantization": "fp8",
+        "context_length": 8192,
+        "pricing": {
+          "prompt": "0.00000004",
+          "completion": "0.00000005",
+          "discount": 0
+        }
+      }
+    ],
+    "meta-llama/llama-3.1-8b-instruct": [
+      {
+        "provider_name": "DeepInfra",
+        "tag": "deepinfra/fp8",
+        "quantization": "fp8",
+        "context_length": 131072,
+        "pricing": {
+          "prompt": "0.00000002",
+          "completion": "0.00000004",
+          "discount": 0
+        }
+      },
+      {
+        "provider_name": "Groq",
+        "tag": "groq",
+        "quantization": "unknown",
+        "context_length": 131072,
+        "pricing": {
+          "prompt": "0.00000005",
+          "completion": "0.00000008",
+          "input_cache_read": "0.000000025",
+          "discount": 0
+        }
+      },
+      {
+        "provider_name": "Cloudflare",
+        "tag": "cloudflare/fp8",
+        "quantization": "fp8",
+        "context_length": 32000,
+        "pricing": {
+          "prompt": "0.000000152",
+          "completion": "0.000000287",
+          "discount": 0
+        }
+      },
+      {
+        "provider_name": "CoreWeave",
+        "tag": "coreweave/bf16",
+        "quantization": "bf16",
+        "context_length": 131072,
+        "pricing": {
+          "prompt": "0.00000022",
+          "completion": "0.00000022",
+          "input_cache_read": "0.00000022",
+          "discount": 0
+        }
+      }
+    ]
+  },
+  "conditions": [
+    {
+      "name": "qwen25_7b__local-bf16__sys-template__sampled",
+      "model": "qwen25_7b",
+      "path": "local",
+      "precision": "bf16",
+      "system": "template",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "qwen25_7b__local-bf16__sys-empty__sampled",
+      "model": "qwen25_7b",
+      "path": "local",
+      "precision": "bf16",
+      "system": "empty",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "qwen25_7b__local-bf16__sys-safety__sampled",
+      "model": "qwen25_7b",
+      "path": "local",
+      "precision": "bf16",
+      "system": "safety",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "llama31_8b__local-bf16__sys-template__sampled",
+      "model": "llama31_8b",
+      "path": "local",
+      "precision": "bf16",
+      "system": "template",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "llama31_8b__local-fp8__sys-template__sampled",
+      "model": "llama31_8b",
+      "path": "local",
+      "precision": "fp8",
+      "system": "template",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "llama31_8b__api-bf16__sys-template__sampled",
+      "model": "llama31_8b",
+      "path": "api",
+      "precision": "bf16",
+      "system": "template",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": "coreweave/bf16"
+    },
+    {
+      "name": "llama31_8b__api-fp8__sys-template__sampled",
+      "model": "llama31_8b",
+      "path": "api",
+      "precision": "fp8",
+      "system": "template",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": "deepinfra/fp8"
+    },
+    {
+      "name": "llama31_8b__local-bf16__sys-safety__sampled",
+      "model": "llama31_8b",
+      "path": "local",
+      "precision": "bf16",
+      "system": "safety",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "llama31_8b__local-fp8__sys-safety__sampled",
+      "model": "llama31_8b",
+      "path": "local",
+      "precision": "fp8",
+      "system": "safety",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "llama31_8b__api-bf16__sys-safety__sampled",
+      "model": "llama31_8b",
+      "path": "api",
+      "precision": "bf16",
+      "system": "safety",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": "coreweave/bf16"
+    },
+    {
+      "name": "llama31_8b__api-fp8__sys-safety__sampled",
+      "model": "llama31_8b",
+      "path": "api",
+      "precision": "fp8",
+      "system": "safety",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": "deepinfra/fp8"
+    },
+    {
+      "name": "lunaris_8b__local-bf16__sys-template__sampled",
+      "model": "lunaris_8b",
+      "path": "local",
+      "precision": "bf16",
+      "system": "template",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "lunaris_8b__local-fp8__sys-template__sampled",
+      "model": "lunaris_8b",
+      "path": "local",
+      "precision": "fp8",
+      "system": "template",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "lunaris_8b__api-bf16__sys-template__sampled",
+      "model": "lunaris_8b",
+      "path": "api",
+      "precision": "bf16",
+      "system": "template",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": "parasail/bf16"
+    },
+    {
+      "name": "lunaris_8b__api-fp8__sys-template__sampled",
+      "model": "lunaris_8b",
+      "path": "api",
+      "precision": "fp8",
+      "system": "template",
+      "decoding": "sampled",
+      "batch": 256,
+      "provider": "deepinfra/turbo"
+    },
+    {
+      "name": "llama31_8b__local-bf16__sys-template__greedy-bs256",
+      "model": "llama31_8b",
+      "path": "local",
+      "precision": "bf16",
+      "system": "template",
+      "decoding": "greedy",
+      "batch": 256,
+      "provider": null
+    },
+    {
+      "name": "llama31_8b__local-bf16__sys-template__greedy-bs8",
+      "model": "llama31_8b",
+      "path": "local",
+      "precision": "bf16",
+      "system": "template",
+      "decoding": "greedy",
+      "batch": 8,
+      "provider": null
+    },
+    {
+      "name": "llama31_8b__api-bf16__sys-template__greedy",
+      "model": "llama31_8b",
+      "path": "api",
+      "precision": "bf16",
+      "system": "template",
+      "decoding": "greedy",
+      "batch": 256,
+      "provider": "coreweave/bf16"
+    }
+  ]
+}
