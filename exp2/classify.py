@@ -11,13 +11,14 @@ from pathlib import Path
 
 HB = Path(os.environ.get("HARMBENCH_DIR", Path.home() / "HarmBench"))
 sys.path.insert(0, str(HB))
+RUN_ARG, BEH_ARG = (str(Path(x).resolve()) for x in sys.argv[1:3])   # resolve before chdir: relative paths would break
 os.chdir(HB)   # eval_utils loads copyright hashes from relative paths
 from transformers import AutoTokenizer  # noqa: E402
 from vllm import LLM, SamplingParams  # noqa: E402
 from eval_utils import compute_results_hashing, compute_results_classifier  # noqa: E402
 
 CLS = "cais/HarmBench-Llama-2-13b-cls"
-run, beh_csv, only = Path(sys.argv[1]), sys.argv[2], sys.argv[3:]
+run, beh_csv, only = Path(RUN_ARG), BEH_ARG, sys.argv[3:]
 behaviors = {b["BehaviorID"]: b for b in csv.DictReader(open(beh_csv, encoding="utf-8"))}
 todo = [d for d in sorted(run.iterdir()) if (d / "completions.json").exists() and not (d / "results.json").exists()
         and (not only or d.name in only)]
