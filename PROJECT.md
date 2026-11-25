@@ -8,9 +8,10 @@
 ## Objective
 
 Run HarmBench on one model in two deployment modes (local on m3, API via OpenRouter) with the same behavior set
-and metric, then report whether deployment mode changes the score. **Result: see `report/report.md`.**
+and metric, then report whether deployment mode changes the score. **Results: `report/report.md` (Experiment 1),
+`report/exp2_report.md` (Experiment 2).**
 
-## Status (2026-11-07)
+## Status (updated 2026-11-25)
 
 | Phase | Item | Status | Evidence |
 |---|---|---|---|
@@ -21,8 +22,15 @@ and metric, then report whether deployment mode changes the score. **Result: see
 | 4 | Local run | Done | `results/local/harmbench_behaviors_text_val/`: ASR 23.8% |
 | 5 | API run | Done | `results/api/harmbench_behaviors_text_val/`: ASR 26.2%, $0.0059 |
 | 6 | Compare and report | Done | `results/comparison/.../comparison.md`, `report/report.md` |
-| — | GitHub repo | Waiting on GitHub login (`gh auth login`) | — |
-| — | Professor confirmation of model / set / budget | Not started | questions below |
+| — | GitHub repo | Done | github.com/tcojike/harmbench-local-vs-api (private); raw completions gitignored |
+| — | Professor review of Experiment 1 | Done | follow-up requested: led to Experiment 2 |
+| 7 | Exp 2 design: 3 models × serving path × bf16/fp8 × system prompt, 320 test behaviors, 5 samples | Done | `exp2/conditions.py`, README "Experiment 2" |
+| 8 | Exp 2 generation (18 conditions, 24,960 completions, 0 errors) | Done | `runs/exp2-20261111-220502/` (gitignored). DeepInfra fp8 lane rerun on Nov 12 after 429 throttling, see `exp2/reruns/` |
+| 9 | Exp 2 scoring and analysis | Done | `results/exp2/exp2-20261111-220502/report.md` |
+| 10 | Prompt parity check | Done | CoreWeave/Parasail feed a doubled BOS (`exp2/check_bos.py`); local double-BOS test reproduces CoreWeave (`results/exp2/double_bos/`) |
+| 11 | Exp 2 write-up | Done | `report/exp2_report.md` |
+| 12 | DeepInfra fp8 copyright anomaly (6.0 vs 22.0 ASR) | Open | Not refusals or shorter output; suspected sampling default or different build. Probe: greedy copyright set with explicit `repetition_penalty: 1.0` |
+| 13 | Exp 3: Qwen3.5-9B local vs OpenRouter (bf16/fp8) | Started | `~/venv-vllm-new` (vLLM 0.31) + weights ready, `exp3/smoke_qwen35.py` passes; not yet in the pipeline |
 
 ## Definition of done
 
@@ -36,7 +44,7 @@ and metric, then report whether deployment mode changes the score. **Result: see
 - [x] Budget/cost note
 - [x] Email-ready summary (below)
 
-## Questions to confirm with the professor
+## Questions to confirm with the professor (asked after Experiment 1, Nov 7)
 
 1. Is Qwen2.5-7B-Instruct acceptable, or do you want a different model (e.g. Llama-3.1-8B, which needs gated HF access)?
 2. Is the HarmBench text validation set (80 behaviors) + DirectRequest + ASR the right scope, or the full 400-behavior set?
@@ -45,7 +53,30 @@ and metric, then report whether deployment mode changes the score. **Result: see
 5. Should the next step be repeated API runs (to measure API noise) or one attack method such as PAIR/TAP?
 6. Note: "M3" here is the Ubuntu GPU server, not an Apple Silicon laptop. Is that what you intended?
 
-## Email-ready summary
+## Email-ready summary: Experiment 2
+
+> Dear Professor,
+>
+> Following your feedback, I ran a larger deployment-parity study (Experiment 2). Since Qwen2.5-7B is no longer on
+> OpenRouter, I used Llama-3.1-8B-Instruct and L3-8B-Lunaris, which are served both locally and through OpenRouter with
+> pinned providers, plus Qwen2.5-7B locally for the system-prompt question. The study covers all 320 HarmBench text test
+> behaviors with 5 samples each, bf16 vs fp8 on both sides, and three system prompts: 24,960 completions in total, scored by
+> the official HarmBench classifier, for about $0.31 in API cost.
+>
+> All 12 pre-registered comparisons (local vs API, bf16 vs fp8, system prompt) are statistically equivalent within ±5
+> points. The small local-vs-API difference for Llama turned out to be a prompt-format issue: two providers add a second
+> beginning-of-text token. With the same extra token locally, our output matches theirs as closely as two local runs match
+> each other. One endpoint (DeepInfra, fp8) has the same overall score but reproduces much less copyrighted text and
+> complies more often on contextual requests, which an overall score alone would hide. The system prompt matters more
+> than the serving path: Qwen's default prompt gives the lowest attack success rate (18.6% vs about 23%).
+>
+> The write-up is in `report/exp2_report.md` in the project repository. As a next step I would propose one probe into
+> the DeepInfra difference and then the same design on a newer model (Qwen3.5-9B), which is already set up locally.
+>
+> Best regards,
+> Emmanuel
+
+## Email-ready summary: Experiment 1
 
 > Dear Professor,
 >

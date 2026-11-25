@@ -2,11 +2,18 @@
 
 **Does the same model score differently on HarmBench when run locally versus through OpenRouter?**
 
-Model: Qwen2.5-7B-Instruct. Local = vLLM on the lab server `m3` (Ubuntu, NVIDIA L40S, *not* an Apple Silicon Mac,
-see `environment/setup_m3.md`). API = `qwen/qwen-2.5-7b-instruct` on OpenRouter (served by Phala).
-Same HarmBench test cases, same decoding settings, same official classifier.
+Local = vLLM on the lab server `m3` (Ubuntu, 4 × NVIDIA L40S, *not* an Apple Silicon Mac, see `environment/setup_m3.md`).
+API = OpenRouter. Same HarmBench test cases, same decoding settings, same official classifier on both sides.
 
-* Results: `report/report.md` (write-up), `results/comparison/<set>/comparison.md` (tables)
+| | Experiment 1 (Nov 7) | Experiment 2 (Nov 11-12) |
+|---|---|---|
+| Models | Qwen2.5-7B-Instruct | Qwen2.5-7B (local only), Llama-3.1-8B-Instruct, L3-8B-Lunaris |
+| Behaviors | 80 (validation), greedy | 320 (test), 5 samples at T 0.7 + greedy noise floor |
+| Factors | local vs API | serving path (provider pinned) × bf16/fp8 × system prompt |
+| Result | 23.8% local vs 26.2% API, not significant; API not reproducible at T 0 | all local-vs-API and bf16-vs-fp8 contrasts equivalent within ±5 pts; CoreWeave/Parasail feed a doubled BOS; DeepInfra fp8 Llama shifts copyright vs contextual |
+| Write-up | `report/report.md` | `report/exp2_report.md` |
+| Tables | `results/comparison/<set>/` | `results/exp2/exp2-20261111-220502/report.md`, `results/exp2/double_bos/` |
+
 * Plan and status: `PROJECT.md`
 
 ## Layout
@@ -18,9 +25,12 @@ scripts/      test_openrouter.py       one logged OpenRouter call (provider, tok
               run_harmbench_local.sh   steps 1-3 on the local model
               run_harmbench_api.sh     steps 1-3 via OpenRouter (records key usage)
               compare_scores.py        tables, McNemar test, cost, reproducibility
-results/      test_cases/<set>/   local/<set>/   api/<set>/   comparison/<set>/
+exp2/         Experiment 2: conditions.py, gen_local.py, gen_api.py, classify.py, analyze.py, run_exp2.sh,
+              check_prompts.py, check_bos.py, check_double_bos_local.py, compare_double_bos.py, reruns/
+exp3/         smoke_qwen35.py (Qwen3.5-9B on vLLM 0.31, ~/venv-vllm-new)
+results/      test_cases/<set>/   local/<set>/   api/<set>/   comparison/<set>/   exp2/<run>/   exp2/double_bos/
 logs/         every step's full log
-report/       report.md
+report/       report.md (Experiment 1), exp2_report.md (Experiment 2)
 ```
 
 ## Reproduce
@@ -71,4 +81,11 @@ source ~/.bashrc; cd ~/harmbench-local-vs-api
 EXP2_LIMIT=2 bash exp2/run_exp2.sh runs/smoke     # 6-behavior smoke test, ~5 min
 bash exp2/run_exp2.sh                              # full run -> results/exp2/<run>/report.md
 ```
-Raw generations stay in `runs/` (gitignored).
+Raw generations stay in `runs/` (gitignored). `gen_api.py` appends every completion to `<cond>/partial.jsonl` and resumes
+from it, so an interrupted API lane loses nothing; resume a whole run with `bash exp2/run_exp2.sh runs/<run>`.
+
+**Results** (`report/exp2_report.md`): all 12 pre-registered contrasts are equivalent within ±5 points. The Llama
+local-vs-CoreWeave difference disappears when the local prompt gets the same doubled BOS (100% greedy label agreement,
+text identity at the local noise floor). DeepInfra fp8 Llama matches the overall ASR but reproduces far less copyrighted
+text (6.0 vs 22.0) and complies more on contextual behaviors (15.1 vs 6.2), without refusing more or writing less.
+API cost: about $0.31.
