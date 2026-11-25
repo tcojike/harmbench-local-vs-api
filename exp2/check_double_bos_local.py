@@ -1,12 +1,12 @@
 """Does a doubled BOS token change Llama-3.1-8B's HarmBench behavior? (follow-up to exp2/check_bos.py)
 
 CoreWeave and Parasail feed <|begin_of_text|><|begin_of_text|>... while local vLLM and DeepInfra feed one BOS.
-This regenerates two local exp2 conditions with exactly one change, an extra BOS id in front of the prompt:
-  llama31_8b__local-bf16__sys-template__greedy-bs256  (greedy)
-  llama31_8b__local-bf16__sys-template__sampled       (5 samples, T 0.7, same per-behavior seeds)
+This regenerates local exp2 conditions with exactly one change, an extra BOS id in front of the prompt:
+  llama31_8b: __local-bf16__sys-template__greedy-bs256 (greedy) and __local-bf16__sys-template__sampled (5 samples, T 0.7)
+  lunaris_8b: __local-bf16__sys-template__sampled (exp2 has no local greedy Lunaris condition)
 Same model revision, dtype, batch size, seeds, decoding and test cases as the exp2 run.
 
-Usage: CUDA_VISIBLE_DEVICES=k python exp2/check_double_bos_local.py EXP2_RUN_DIR OUT_RUN_DIR
+Usage: CUDA_VISIBLE_DEVICES=k python exp2/check_double_bos_local.py EXP2_RUN_DIR OUT_RUN_DIR [MODEL]   (default llama31_8b)
 Writes OUT_RUN_DIR/<cond>__double-bos/{records.jsonl,completions.json,gen_meta.json}; score with exp2/classify.py.
 """
 import hashlib, json, shutil, sys, time
@@ -16,12 +16,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from conditions import CONDITIONS, MODELS, SAMPLED, GREEDY, messages, render  # noqa: E402
 
 src, out_run = Path(sys.argv[1]), Path(sys.argv[2]); out_run.mkdir(parents=True, exist_ok=True)
+MODEL = sys.argv[3] if len(sys.argv) > 3 else "llama31_8b"
 shutil.copy(src / "test_cases.json", out_run / "test_cases.json")
 test_cases = json.load(open(out_run / "test_cases.json"))
-BASE = ["llama31_8b__local-bf16__sys-template__greedy-bs256", "llama31_8b__local-bf16__sys-template__sampled"]
-conds = [next(c for c in CONDITIONS if c["name"] == n) for n in BASE]
-assert {c["batch"] for c in conds} == {256}
-m = MODELS["llama31_8b"]
+BASE = [f"{MODEL}__local-bf16__sys-template__greedy-bs256", f"{MODEL}__local-bf16__sys-template__sampled"]
+conds = [c for n in BASE for c in CONDITIONS if c["name"] == n]
+assert conds and {c["batch"] for c in conds} == {256}, BASE
+m = MODELS[MODEL]
 
 from vllm import LLM, SamplingParams  # noqa: E402
 llm = LLM(model=m["hf"], revision=m["revision"], dtype="bfloat16", seed=0, max_num_seqs=256,
