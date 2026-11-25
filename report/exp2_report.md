@@ -4,23 +4,28 @@
 different system prompts?*
 
 Run: `exp2-20261111-220502` (2026-11-11/12) · Machine: `m3` (Ubuntu, 4 × NVIDIA L40S) · Full tables:
-`results/exp2/exp2-20261111-220502/report.md` · Follow-up check: `results/exp2/double_bos/comparison.md`
+`results/exp2/exp2-20261111-220502/report.md` · Follow-ups (Nov 12 and 25): `results/exp2/double_bos/`,
+`results/exp2/followups_20261125/`
 
 ## 1. Summary
 
 * **The serving path does not change overall ASR.** All 12 pre-registered contrasts (local vs API, bf16 vs fp8, system
   prompt) for Llama-3.1-8B and L3-8B-Lunaris are statistically equivalent within ±5 points (TOST, α = 0.05). The largest
   local-vs-API gap is 1.6 points.
-* **The Llama local-vs-CoreWeave difference is a prompt-format difference, not the serving stack.** CoreWeave and
+* **The remaining local-vs-API difference is a prompt-format difference, not the serving stack.** CoreWeave and
   Parasail prepend a BOS token to a Llama-3 template that already starts with one, so their models see two. With the same
-  extra BOS added locally, local greedy output matches CoreWeave at the noise floor: 100% label agreement and 67.5%
-  identical text, against 71.2% between two local runs that differ only in batch size.
+  extra BOS added locally, the gap closes on both models: Llama vs CoreWeave +0.9 → −0.3 points, Lunaris vs Parasail +1.4 →
+  +0.1. Greedy Llama output then matches CoreWeave at the noise floor: 100% label agreement and 67.5% identical text,
+  against 71.2% between two local runs that differ only in batch size.
 * **The system prompt matters more than the serving path.** Qwen2.5-7B's default template system prompt gives the lowest
   ASR (18.6%). An empty prompt gives 23.1% and the Llama-2 safety prompt 22.8% (+4.2 to +4.6 points; p = 0.10–0.14 after
   Holm correction). The safety prompt lowers Llama ASR through the API (−3.0, p = 0.004) but not locally (−0.5).
 * **One endpoint behaves differently underneath an equivalent total.** Llama-3.1-8B on DeepInfra fp8 has the same overall
   ASR as local (7.3 vs 7.4), but much less copyright reproduction (6.0 vs 22.0) and more contextual compliance (15.1 vs
-  6.2). It is not a refusal or length effect (section 5).
+  6.2). It is not a refusal, length, sampling-parameter or time effect; the evidence points to the model build DeepInfra
+  serves (section 5).
+* **API results are stable over two weeks.** Rerunning two API conditions unchanged on Nov 25 gave the same ASR (CoreWeave
+  8.2 → 8.2, DeepInfra 7.3 → 7.1). With the same seeds, CoreWeave reproduced 90.9% of sampled texts byte for byte.
 
 ## 2. Design
 
@@ -83,8 +88,17 @@ else changed (`exp2/check_double_bos_local.py`):
 
 With matching prompts, what remains of the serving-stack difference (hardware, kernels, batching) is no larger than local
 batch-size noise. The extra BOS alone moves Llama's ASR by about +1 point (sampled 7.4 → 8.6, p = 0.27): within the
-equivalence margin, but it is a real input difference. Lunaris on Parasail gets the same extra BOS; its effect there was
-not measured.
+equivalence margin, but it is a real input difference.
+
+**Both models, sampled, local vs the 2-BOS provider** (Nov 25 follow-up for Lunaris, `results/exp2/followups_20261125/`):
+
+| Model (provider) | Local 1 BOS vs API | Local 2 BOS vs API | Effect of the extra BOS alone |
+|---|---|---|---|
+| Llama-3.1-8B (CoreWeave) | +0.9 [−0.9, +2.8] | **−0.3** [−1.7, +1.1] | +1.2 [−0.8, +3.2], p = 0.27 |
+| L3-8B-Lunaris (Parasail) | +1.4 [−1.1, +4.0] | **+0.1** [−2.1, +2.2] | +1.4 [−1.2, +4.1], p = 0.33 |
+
+Diff = API − local, ASR points, 95% bootstrap CI. On both models, matching the BOS removes the gap, and the extra BOS alone
+nudges ASR up by a similar, non-significant amount.
 
 ## 5. DeepInfra fp8: same total, different composition
 
@@ -112,19 +126,31 @@ Ruled out:
 * **DeepInfra in general:** Lunaris on DeepInfra is normal.
 * **The prompt:** one BOS and identical length.
 
-Remaining candidates:
-* a different weight build or quantization recipe at DeepInfra
-* a provider-side sampling default such as a repetition or frequency penalty, which would suppress verbatim recall
-* drift: these two conditions ran about 9 hours after the rest
+**Probe (Nov 25, `results/exp2/followups_20261125/copyright_probe.md`).** The 80 copyright behaviors, greedy:
 
-**Untested.** A cheap check: rerun the 80 copyright behaviors greedily on DeepInfra fp8, with and without an explicit
-`repetition_penalty: 1.0`, and compare with local.
+| Arm | Copyright ASR | Same first 200 chars as local greedy |
+|---|---|---|
+| Local bf16 (Nov 11) | 23.8 | — |
+| CoreWeave bf16, defaults (same day) | 21.2 | 12.5% |
+| DeepInfra fp8, defaults | 5.0 | 0.0% |
+| DeepInfra fp8, every penalty explicitly off | 6.2 | 0.0% |
+| DeepInfra fp8, `repetition_penalty` 1.1 | 5.0 | 0.0% |
+
+Ruled out as well:
+* **A hidden sampling default:** explicitly neutral settings do not restore reproduction. The parameters are applied
+  (`repetition_penalty` 1.1 changed every response), so a default penalty would have shown up.
+* **Time:** the drift rerun two weeks later gives copyright 5.3 (then 6.0).
+
+DeepInfra's responses diverge from local from the first tokens. The evidence points to the model DeepInfra serves (weights
+or its fp8 quantization recipe). DeepInfra does not publish its build, so this cannot be confirmed from outside.
 
 ## 6. Caveats
 
 1. **Two conditions ran later.** DeepInfra throttled the fp8 lane (HTTP 429) on Nov 11; its process was killed before
    writing anything, and the safety-prompt condition behind it never started. Both were rerun on Nov 12 with the same
-   endpoint, seeds, decoding and test cases (`exp2/reruns/`). `gen_api.py` now checkpoints every completion.
+   endpoint, seeds, decoding and test cases (`exp2/reruns/`). `gen_api.py` now checkpoints every completion. The time
+   difference does not matter: rerunning one CoreWeave and one DeepInfra condition two weeks later (Nov 25) changed ASR by
+   0.0 and −0.3 points (`results/exp2/followups_20261125/drift.md`).
 2. **Provider opacity.** Provider builds, quantization recipes and sampling defaults are not disclosed, and providers can
    change them at any time. Qwen2.5-7B disappeared from OpenRouter between Experiment 1 and 2.
 3. **Truncation.** 35–43% of Qwen responses and 6–25% of the others hit the 512-token limit. The classifier reads at most

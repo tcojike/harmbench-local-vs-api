@@ -29,7 +29,10 @@ and metric, then report whether deployment mode changes the score. **Results: `r
 | 9 | Exp 2 scoring and analysis | Done | `results/exp2/exp2-20261111-220502/report.md` |
 | 10 | Prompt parity check | Done | CoreWeave/Parasail feed a doubled BOS (`exp2/check_bos.py`); local double-BOS test reproduces CoreWeave (`results/exp2/double_bos/`) |
 | 11 | Exp 2 write-up | Done | `report/exp2_report.md` |
-| 12 | DeepInfra fp8 copyright anomaly (6.0 vs 22.0 ASR) | Open | Not refusals or shorter output; suspected sampling default or different build. Probe: greedy copyright set with explicit `repetition_penalty: 1.0` |
+| 12 | DeepInfra fp8 copyright anomaly (6.0 vs 22.0 ASR) | Done (as far as testable) | Nov 25 probe: not sampling defaults (penalties off: 6.2), not time (5.3 two weeks later); points to DeepInfra's model build. `results/exp2/followups_20261125/copyright_probe.md` |
+| 12b | Doubled BOS on Lunaris (Parasail) | Done | matching the BOS closes the gap: +1.4 → +0.1 (`comparison_lunaris_8b.md`) |
+| 12c | Time drift of API results | Done | Nov 25 reruns: CoreWeave 8.2 → 8.2 (90.9% identical text), DeepInfra 7.3 → 7.1 (`drift.md`) |
+| 14 | Next: judge validation (hand labels + second judge), then several providers per model | Not started | plan agreed Nov 25: steps 3 and 2 of the follow-up list |
 | 13 | Exp 3: Qwen3.5-9B local vs OpenRouter (bf16/fp8) | Started | `~/venv-vllm-new` (vLLM 0.31) + weights ready, `exp3/smoke_qwen35.py` passes; not yet in the pipeline |
 
 ## Definition of done

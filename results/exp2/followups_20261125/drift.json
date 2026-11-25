@@ -1,0 +1,166 @@
+{
+  "llama31_8b__api-bf16__sys-template__sampled": {
+    "contrast": {
+      "ALL": {
+        "n": 320,
+        "asr_then": 0.08249999999999999,
+        "asr_now": 0.08249999999999999,
+        "diff": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci90": [
+          0.0,
+          0.0
+        ],
+        "p": 1.0,
+        "equivalent": true,
+        "same_rate": 1.0
+      },
+      "standard": {
+        "n": 159,
+        "asr_then": 0.021383647798742137,
+        "asr_now": 0.021383647798742137,
+        "diff": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci90": [
+          0.0,
+          0.0
+        ],
+        "p": 1.0,
+        "equivalent": true,
+        "same_rate": 1.0
+      },
+      "contextual": {
+        "n": 81,
+        "asr_then": 0.09629629629629628,
+        "asr_now": 0.09629629629629628,
+        "diff": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci90": [
+          0.0,
+          0.0
+        ],
+        "p": 1.0,
+        "equivalent": true,
+        "same_rate": 1.0
+      },
+      "copyright": {
+        "n": 80,
+        "asr_then": 0.19,
+        "asr_now": 0.19,
+        "diff": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "ci90": [
+          0.0,
+          0.0
+        ],
+        "p": 1.0,
+        "equivalent": true,
+        "same_rate": 1.0
+      }
+    },
+    "providers_then": {
+      "CoreWeave": 1600
+    },
+    "providers_now": {
+      "CoreWeave": 1600
+    },
+    "prompt_tokens_equal": true,
+    "mean_completion_tokens_then": 134.06375,
+    "mean_completion_tokens_now": 133.71,
+    "errors_now": 0
+  },
+  "llama31_8b__api-fp8__sys-template__sampled": {
+    "contrast": {
+      "ALL": {
+        "n": 320,
+        "asr_then": 0.073125,
+        "asr_now": 0.070625,
+        "diff": -0.002500000000000001,
+        "ci95": [
+          -0.011250000000000001,
+          0.005640624999999773
+        ],
+        "ci90": [
+          -0.009375000000000001,
+          0.004375
+        ],
+        "p": 0.6618338166183382,
+        "equivalent": true,
+        "same_rate": 0.9125
+      },
+      "standard": {
+        "n": 159,
+        "asr_then": 0.04025157232704403,
+        "asr_now": 0.0389937106918239,
+        "diff": -0.001257861635220126,
+        "ci95": [
+          -0.006289308176100629,
+          0.002515723270440252
+        ],
+        "ci90": [
+          -0.005031446540880504,
+          0.002515723270440252
+        ],
+        "p": 1.0,
+        "equivalent": true,
+        "same_rate": 0.9811320754716981
+      },
+      "contextual": {
+        "n": 81,
+        "asr_then": 0.15061728395061727,
+        "asr_now": 0.15061728395061727,
+        "diff": -6.853228547068867e-19,
+        "ci95": [
+          -0.029629629629629634,
+          0.029629629629629627
+        ],
+        "ci90": [
+          -0.024691358024691364,
+          0.024691358024691357
+        ],
+        "p": 1.0,
+        "equivalent": true,
+        "same_rate": 0.7407407407407407
+      },
+      "copyright": {
+        "n": 80,
+        "asr_then": 0.06,
+        "asr_now": 0.052500000000000005,
+        "diff": -0.0075000000000000015,
+        "ci95": [
+          -0.0225,
+          0.0025
+        ],
+        "ci90": [
+          -0.02,
+          0.0025
+        ],
+        "p": 0.5043495650434956,
+        "equivalent": true,
+        "same_rate": 0.95
+      }
+    },
+    "providers_then": {
+      "DeepInfra": 1600
+    },
+    "providers_now": {
+      "DeepInfra": 1600
+    },
+    "prompt_tokens_equal": true,
+    "mean_completion_tokens_then": 152.680625,
+    "mean_completion_tokens_now": 153.080625,
+    "errors_now": 0
+  }
+}

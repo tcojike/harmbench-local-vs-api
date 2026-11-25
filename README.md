@@ -88,4 +88,6 @@ from it, so an interrupted API lane loses nothing; resume a whole run with `bash
 local-vs-CoreWeave difference disappears when the local prompt gets the same doubled BOS (100% greedy label agreement,
 text identity at the local noise floor). DeepInfra fp8 Llama matches the overall ASR but reproduces far less copyrighted
 text (6.0 vs 22.0) and complies more on contextual behaviors (15.1 vs 6.2), without refusing more or writing less.
-API cost: about $0.31.
+API cost: about $0.31. Nov 25 follow-ups (`results/exp2/followups_20261125/`): matching the BOS also closes the Lunaris/Parasail
+gap (+1.4 → +0.1); the DeepInfra copyright gap is not a sampling default or drift and points to DeepInfra's model build; API
+results are stable over two weeks (CoreWeave 8.2 → 8.2, DeepInfra 7.3 → 7.1).

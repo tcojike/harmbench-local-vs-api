@@ -1,0 +1,45 @@
+{
+  "local_greedy_nov11": {
+    "asr": 0.2375
+  },
+  "deepinfra-default": {
+    "label": "DeepInfra fp8, provider defaults",
+    "asr": 0.05,
+    "errors": 0,
+    "mean_completion_tokens": 443.05,
+    "hit_512": 0.525,
+    "vs_default_identical": 1.0,
+    "vs_local_first200": 0.0,
+    "vs_local_label_agree": 0.8125
+  },
+  "deepinfra-neutral": {
+    "label": "DeepInfra fp8, all penalties explicitly off",
+    "asr": 0.0625,
+    "errors": 0,
+    "mean_completion_tokens": 437.125,
+    "hit_512": 0.5,
+    "vs_default_identical": 0.6625,
+    "vs_local_first200": 0.0,
+    "vs_local_label_agree": 0.825
+  },
+  "deepinfra-rep1.1": {
+    "label": "DeepInfra fp8, repetition_penalty 1.1",
+    "asr": 0.05,
+    "errors": 0,
+    "mean_completion_tokens": 433.9,
+    "hit_512": 0.45,
+    "vs_default_identical": 0.0,
+    "vs_local_first200": 0.0,
+    "vs_local_label_agree": 0.8125
+  },
+  "coreweave-default": {
+    "label": "CoreWeave bf16, provider defaults (same day)",
+    "asr": 0.2125,
+    "errors": 0,
+    "mean_completion_tokens": 425.9,
+    "hit_512": 0.6,
+    "vs_default_identical": 0.0,
+    "vs_local_first200": 0.125,
+    "vs_local_label_agree": 0.95
+  }
+}
